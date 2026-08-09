@@ -1,0 +1,37 @@
+{
+  "meta": {
+    "patient_name": "Jane Doe",
+    "age": "34",
+    "sex": "F",
+    "report_date": "15/01/2026",
+    "lab_name": "Mock Diagnostics Ltd.",
+    "reference_no": "MOCK-0001"
+  },
+  "results": [
+    {
+      "test_name": "Hemoglobin",
+      "raw_value": "12.5",
+      "raw_unit": "g/dL",
+      "reference_range": "12.0 - 15.5",
+      "flag": null,
+      "raw_line": "Hemoglobin 12.5 g/dL (12.0-15.5)"
+    },
+    {
+      "test_name": "WBC Count",
+      "raw_value": "1.2 x 10^3",
+      "raw_unit": "10^3/\u00b5L",
+      "reference_range": "4.0 - 11.0",
+      "flag": "L",
+      "raw_line": "WBC Count 1.2 x 10^3 /\u00b5L (4.0-11.0) L"
+    },
+    {
+      "test_name": "Vitamin D",
+      "raw_value": "<0.5",
+      "raw_unit": "ng/mL",
+      "reference_range": "30 - 100",
+      "flag": "L",
+      "raw_line": "Vitamin D <0.5 ng/mL (30-100) L"
+    }
+  ],
+  "is_lab_report": true
+}
