@@ -23,6 +23,18 @@ def get_transcription_provider(settings: Settings) -> TranscriptionProvider:
         # whisper (and its heavy deps) uninstalled/unloaded on the mock-only path
         return WhisperAdapter(model_size=settings.whisper_model_size, device=settings.whisper_device)
 
+    if settings.transcription_provider == TranscriptionProviderName.GEMINI:
+        from app.adapters.gemini_transcription_adapter import GeminiTranscriptionAdapter  # local import
+        if not settings.gemini_api_key:
+            raise ValueError(
+                "transcription_provider is set to 'gemini' but gemini_api_key is not "
+                "configured. Set GEMINI_API_KEY in .env."
+            )
+        return GeminiTranscriptionAdapter(
+            api_key=settings.gemini_api_key,
+            model_name=settings.gemini_model_name,
+        )
+
     raise ValueError(f"Unknown transcription provider: {settings.transcription_provider}")
 
 

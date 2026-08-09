@@ -4,4 +4,17 @@ uvicorn[standard]>=0.29
 pydantic>=2.6
 pydantic-settings>=2.2
 pytest>=8.0
+
+# Real transcription adapter (self-hosted, GPU-accelerated). Not needed
+# for the mock-only default path -- only import faster_whisper if you
+# intend to run TRANSCRIPTION_PROVIDER=whisper.
 faster-whisper>=1.0
+
+# Real extraction/transcription adapters using Gemini's free-tier API.
+# NOTE: google-generativeai is deprecated (EOL) -- google-genai is the
+# current, supported SDK, used here instead.
+google-genai>=0.3
+
+# Used by the Gemini transcription adapter to compute real audio
+# duration, since Gemini's API response doesn't include it directly.
+mutagen>=1.47

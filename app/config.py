@@ -20,6 +20,7 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 class TranscriptionProviderName(str, Enum):
     MOCK = "mock"
     WHISPER = "whisper"
+    GEMINI = "gemini"
 
 
 class ExtractionProviderName(str, Enum):
