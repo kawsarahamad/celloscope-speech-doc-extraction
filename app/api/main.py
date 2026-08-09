@@ -9,12 +9,14 @@ lives in app/services/ and never imports from here.
 
 from fastapi import FastAPI
 
+from app.api.routes import router
 from app.config import get_settings
 
 app = FastAPI(
     title="Celloscope Speech & Document Extraction",
     version="0.1.0",
 )
+app.include_router(router)
 
 
 @app.get("/health")
