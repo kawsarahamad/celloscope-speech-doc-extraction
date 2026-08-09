@@ -1,0 +1,33 @@
+# `docker compose up` (no profile flag) starts ONLY the `api` service,
+# using the mock adapters by default -- no credentials, no model
+# download, works on a clean clone with no .env file present at all.
+#
+# Real adapters activate via .env (see .env.example):
+#   TRANSCRIPTION_PROVIDER=whisper
+#   EXTRACTION_PROVIDER=gemini
+#   GEMINI_API_KEY=...
+#
+# Whisper is a self-hosted model (downloads weights on first use), so
+# if/when a dedicated whisper-serving container is added, it must sit
+# behind a compose --profile flag, never on the default path. Currently
+# WhisperAdapter runs in-process inside the api container itself and
+# only loads the model when TRANSCRIPTION_PROVIDER=whisper is set --
+# the default `docker compose up` with no .env never triggers that load.
+
+services:
+  api:
+    build: .
+    ports:
+      - "8000:8000"
+    # No `env_file:` directive here deliberately -- some Docker Compose
+    # versions error if the referenced file doesn't exist, which would
+    # break "works with no .env present at all." Compose automatically
+    # reads a .env file in this directory for variable substitution
+    # below IF one exists; if it doesn't, the ${VAR:-default} fallbacks
+    # apply and nothing errors.
+    environment:
+      TRANSCRIPTION_PROVIDER: ${TRANSCRIPTION_PROVIDER:-mock}
+      EXTRACTION_PROVIDER: ${EXTRACTION_PROVIDER:-mock}
+      WHISPER_MODEL_SIZE: ${WHISPER_MODEL_SIZE:-small}
+      GEMINI_API_KEY: ${GEMINI_API_KEY:-}
+      GEMINI_MODEL_NAME: ${GEMINI_MODEL_NAME:-gemini-2.0-flash}
