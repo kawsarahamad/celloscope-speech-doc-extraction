@@ -13,6 +13,10 @@ COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
 COPY app ./app
+# The mock adapters replay these JSON fixtures from disk at runtime --
+# they're config, not test input, so they ship in the image even
+# though the rest of testdata/ (sample audio/images) doesn't.
+COPY testdata/fixtures ./testdata/fixtures
 
 EXPOSE 8000
 
