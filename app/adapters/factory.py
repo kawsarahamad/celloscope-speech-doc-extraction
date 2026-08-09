@@ -21,7 +21,7 @@ def get_transcription_provider(settings: Settings) -> TranscriptionProvider:
     if settings.transcription_provider == TranscriptionProviderName.WHISPER:
         from app.adapters.whisper_adapter import WhisperAdapter  # local import: keeps
         # whisper (and its heavy deps) uninstalled/unloaded on the mock-only path
-        return WhisperAdapter(model_size=settings.whisper_model_size)
+        return WhisperAdapter(model_size=settings.whisper_model_size, device=settings.whisper_device)
 
     raise ValueError(f"Unknown transcription provider: {settings.transcription_provider}")
 

@@ -37,6 +37,10 @@ class Settings(BaseSettings):
 
     # --- Real adapter config (only required if the matching provider above is selected) ---
     whisper_model_size: str = "small"
+    # "auto" | "cpu" | "cuda" -- forwarded to faster-whisper/CTranslate2.
+    # "auto" already picks GPU when available, so this only needs to be
+    # set explicitly to force one or the other.
+    whisper_device: str = "auto"
     gemini_api_key: str | None = None
     gemini_model_name: str = "gemini-2.0-flash"
 
